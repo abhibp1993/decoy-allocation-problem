@@ -1,0 +1,6 @@
+networkx>=2.8
+loguru>=0.7.0
+numpy>=1.21.4
+tqdm>=4.64.0
+simplejson>=3.19.1
+matplotlib>=3.5.1
