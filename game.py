@@ -338,6 +338,8 @@ class Game:
             states = {state: idx for idx, state in enumerate(self.init_states())}
             is_state_valid = self.is_state_valid
 
+        model["init_states"] = [states[state] for state in states]
+
         # Check validity of initial states
         if kwargs.get("validate_init_states", True):
             invalid_states = {state for state in states.keys() if not is_state_valid(state)}
@@ -371,9 +373,8 @@ class Game:
                 # Update newly visited states and transitions
                 num_edges = trans_update(num_edges)
 
-        # Populate other aspects of model
+        # Populate remaining aspects of model
         model["states"] = {idx: state for state, idx in states.items()}
-        model["init_states"] = [states[state] for state in self.init_states()]
         model["actions"] = actions
         model["transitions"] = transitions
         model["num_transitions"] = num_edges

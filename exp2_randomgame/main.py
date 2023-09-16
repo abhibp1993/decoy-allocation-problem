@@ -4,14 +4,17 @@ Solve each game using DSWinReach and DASWinReach algorithms.
 Automatically compare the VoD.
 """
 
-import game
-import os, sys
+import os
 import random
-import vizutils as viz
-from solvers import *
-from game_generator import RandomGame
+import sys
+
 import matplotlib.pyplot as plt
 import numpy as np
+
+import game
+import vizutils as viz
+from game_generator import RandomGame
+from solvers import *
 
 OUTPUT_DIRECTORY = os.path.join("out")
 logger.remove()
@@ -19,20 +22,20 @@ logger.add(sys.stderr, level="INFO")
 logger.add(os.path.join(OUTPUT_DIRECTORY, "exp2_randomgame.log"), level="INFO")
 
 
-def solve_one_game(seed):
+def solve_one_game(seed_):
     n_nodes = 150
     n_max_out_degree = 5
     n_final = 10
     n_decoys = 5
-    random.seed(seed)
+    random.seed(seed_)
 
     # ============================
     # Select one of the two blocks
     # ============================
     # Generate random game
-    gm = RandomGame(n_nodes, n_max_out_degree, n_final, seed)
+    gm = RandomGame(n_nodes, n_max_out_degree, n_final, seed_)
     model = gm.build_model()
-    game.save_model(model, os.path.join(OUTPUT_DIRECTORY, f"game{seed}.model"))
+    game.save_model(model, os.path.join(OUTPUT_DIRECTORY, f"game{seed_}.model"))
     # ============================
     # model = game.load_model(os.path.join(OUTPUT_DIRECTORY, f"game{seed}.model"))
     # ============================
@@ -42,13 +45,13 @@ def solve_one_game(seed):
     final = {u for u in base_game_graph.nodes() if "goal" in base_game_graph.nodes[u]["label"]}
     base_game_sol = solve_base_game(base_game_graph, final)
     win2 = base_game_sol.winning_nodes[2]
-    viz.save_base_game(base_game_graph, base_game_sol, os.path.join(OUTPUT_DIRECTORY, f"game{seed}_base_game_graph.png"), final=final)
+    viz.save_base_game(base_game_graph, base_game_sol, os.path.join(OUTPUT_DIRECTORY, f"game{seed_}_base_game_graph.png"), final=final)
 
     # Determine decoy candidates
     candidates = {u: {u} for u in win2 - final}
 
     # Solve using DSWin for fakes
-    logger.info(f"---------------------- dswin_fakes: {seed}----------------------")
+    logger.info(f"---------------------- dswin_fakes: {seed_}----------------------")
     dswin_fakes = DecoyAllocator(
         p1game=base_game_graph,
         true_final=final,
@@ -60,7 +63,7 @@ def solve_one_game(seed):
     dswin_fakes.solve()
 
     # Solve using DSWin for traps
-    logger.info(f"---------------------- dswin_traps: {seed}----------------------")
+    logger.info(f"---------------------- dswin_traps: {seed_}----------------------")
     dswin_traps = DecoyAllocator(
         p1game=base_game_graph,
         true_final=final,
@@ -72,7 +75,7 @@ def solve_one_game(seed):
     dswin_traps.solve()
 
     # Solve using DASWin for fakes
-    logger.info(f"---------------------- daswin_fakes: {seed}----------------------")
+    logger.info(f"---------------------- daswin_fakes: {seed_}----------------------")
     daswin_fakes = DecoyAllocator(
         p1game=base_game_graph,
         true_final=final,
@@ -84,7 +87,7 @@ def solve_one_game(seed):
     daswin_fakes.solve()
 
     # Solve using DASWin for traps
-    logger.info(f"---------------------- daswin_traps: {seed}----------------------")
+    logger.info(f"---------------------- daswin_traps: {seed_}----------------------")
     daswin_traps = DecoyAllocator(
         p1game=base_game_graph,
         true_final=final,
@@ -109,6 +112,7 @@ def generate_plot(data, fpath):
     """
     Generates and saves the plot as PNG.
     :param data: (dict) {"dswin, traps": (best_decoy, vod), "dswin, fakes": (best_decoy, vod), ...}
+    :param fpath: (str, path-like) Path to save the plot.
     """
     # Load data
     data_dswin_traps = data["dswin, traps"]

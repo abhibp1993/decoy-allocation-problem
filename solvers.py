@@ -78,11 +78,12 @@ class DecoyAllocator:
         logger.info(f"Initializing candidate decoys: {set(self._candidates.keys())} ")
 
         # 1. ALLOCATE FAKES
+        iter_count = len(fakes)
         self._data = dict()
         self._best_decoys = dict()
         while self._num_fakes - len(fakes) > 0:
             # Bookkeeping
-            iter_count = len(fakes) + 1
+            iter_count += 1
             self._data[iter_count] = list()
 
             # Collect potential states that can be allocated as next fake
@@ -102,7 +103,7 @@ class DecoyAllocator:
 
                 # Update data
                 # self._data[iter_count][str(fakes | {candidate})] = win.vod()
-                self._data[iter_count].append({"traps": traps | {candidate}, "fakes": fakes, "vod": win.vod})
+                self._data[iter_count].append({"traps": set(traps), "fakes": set(fakes) | {candidate}, "vod": win.vod})
                 logger.info(f"Explored candidate {candidate} for fake no. {iter_count}: "
                             f"fakes={fakes} and traps={traps}. VoD: {win.vod}")
 
@@ -118,9 +119,10 @@ class DecoyAllocator:
             logger.info(f"Selected {best_fake} for fake no. {iter_count}: fakes={fakes} and traps={traps}. Resulting VoD: {best_vod}")
 
         # 2. ALLOCATE TRAPS
+        iter_count += len(traps)
         while self._num_traps - len(traps) > 0:
             # Bookkeeping
-            iter_count = len(traps) + 1
+            iter_count += 1
             self._data[iter_count] = list()
 
             # Collect potential states that can be allocated as next trap
@@ -145,7 +147,7 @@ class DecoyAllocator:
                 win.solve()
 
                 # Update data
-                self._data[iter_count].append({"traps": traps | {candidate}, "fakes": fakes, "vod": win.vod})
+                self._data[iter_count].append({"traps": set(traps) | {candidate}, "fakes": set(fakes), "vod": win.vod})
 
                 # Update best fake and vod
                 iteration_vod_map[candidate] = win.vod
@@ -268,7 +270,7 @@ class DSWinReach:
         self.hypergame = self.construct_hypergame(self.sr_acts)
         p1_final = self.traps | self.fakes
         if p1_final - set(self.hypergame.nodes()):
-            logger.critical(
+            logger.warning(
                 f"The following decoy states are not in hypergame: {p1_final - set(self.hypergame.nodes())}. "
                 f"Setting p1_final = {set.intersection(p1_final, set(self.hypergame.nodes()))=}."
             )
@@ -295,7 +297,7 @@ class DSWinReach:
             self.vod = len(self.winning_nodes[1]) / (self.hypergame.number_of_nodes() - len(self.final))
         except ZeroDivisionError:
             self.vod = 0
-        logger.debug(f"Value of deception: {self.vod}")
+        logger.info(f"Value of deception: {self.vod}")
 
         # Mark the game as solved
         self._is_solved = True
@@ -413,7 +415,7 @@ class DASWinReach:
                     for u_prime in successors_v:
                         # If u_prime is not in hypergame, then skip.
                         if u_prime not in hgame.nodes() and u_prime not in self.final | self.traps | self.fakes:
-                            logger.critical(
+                            logger.warning(
                                 f"Spurious transition: T({u}, {a}) -> {v}. State {v} is not in hypergame, but is reached under SRActs."
                             )
                             continue
@@ -517,7 +519,7 @@ class DASWinReach:
         except ZeroDivisionError:
             self.vod = 0.0
 
-        logger.debug(f"Value of deception: {self.vod}")
+        logger.info(f"Value of deception: {self.vod}")
 
         # Mark the game as solved
         self._is_solved = True

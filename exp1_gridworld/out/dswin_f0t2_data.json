@@ -1,0 +1,1915 @@
+{
+  "1": [
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              4,
+              0
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.00864677907479464
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              3,
+              4
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.12148724600086468
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              4,
+              3
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.025075659316904454
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              3,
+              1
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.021184608733246867
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              5,
+              4
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.18460873324686555
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              5,
+              1
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.02680501513186338
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              0,
+              2
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.01729355814958928
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              0,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.03588413316039775
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              2,
+              2
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.020752269779507133
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              0
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.01124081279723303
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              2,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.03977518374405534
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              3
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.20276696930393429
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              6,
+              2
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.01599654128837008
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              6,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.0311284046692607
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              4,
+              2
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.019455252918287938
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              3,
+              0
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.007782101167315175
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              4,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.04712494595763078
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              3,
+              3
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.08992650237786425
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              5,
+              0
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.010808473843493299
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              5,
+              6
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.14656290531776914
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              3,
+              6
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.06830955469087764
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              5,
+              3
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.15348032857760485
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              0,
+              1
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.01124081279723303
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              2
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.05188067444876784
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              2,
+              1
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.014267185473411154
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.2797233030696066
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              6,
+              1
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.010808473843493299
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              3,
+              2
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.040639861651534805
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              4,
+              1
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.013834846519671422
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              3,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.15910073497622135
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              5,
+              2
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.04842196281884998
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              5,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.22006052745352356
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.006917423259835711
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              1
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.028534370946822308
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              0,
+              3
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.023346303501945526
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              2,
+              0
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.00864677907479464
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              4
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.2356247297881539
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              0,
+              6
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.040207522697795074
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              2,
+              3
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.02680501513186338
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              2,
+              6
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.040207522697795074
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              6,
+              0
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.006917423259835711
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              6,
+              6
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.03372243839169909
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              6,
+              3
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.021616947686986597
+    }
+  ],
+  "2": [
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              4,
+              0
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.2883700821444012
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              3,
+              4
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.3938607868568958
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              4,
+              3
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.30436662343277127
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              3,
+              1
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.30436662343277127
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              5,
+              4
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.46433203631647213
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              5,
+              1
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.30652831820147
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              0,
+              2
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.2797233030696066
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              0,
+              5
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.3151750972762646
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              2,
+              2
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.2814526588845655
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              0
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.2797233030696066
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              2,
+              5
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.3143104193687851
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              3
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.2797233030696066
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              6,
+              2
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.29571984435797666
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              6,
+              5
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.3108517077388673
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              4,
+              2
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.2991785559878945
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              3,
+              0
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.2892347600518807
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              4,
+              5
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.32511889321227844
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              3,
+              3
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.3631647211413748
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              5,
+              0
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.2905317769130999
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              5,
+              6
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.4262862083873757
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              3,
+              6
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.34457414613056636
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              5,
+              3
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.43320363164721143
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              0,
+              1
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.2797233030696066
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              2
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.2797233030696066
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              2,
+              1
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.2814526588845655
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              6,
+              1
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.2905317769130999
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              3,
+              2
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.32511889321227844
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              4,
+              1
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.293558149589278
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              3,
+              5
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.4297449200172936
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              5,
+              2
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.32814526588845655
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              5,
+              5
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.49978383052313013
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              0,
+              0
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.2797233030696066
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              1
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.2797233030696066
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              0,
+              3
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.2797233030696066
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              2,
+              0
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.2814526588845655
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              4
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.2797233030696066
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              0,
+              6
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.35235624729788156
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              2,
+              3
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.2814526588845655
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              2,
+              6
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.3506268914829226
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              6,
+              0
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.28664072632944226
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              6,
+              6
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.31344574146130566
+    },
+    {
+      "traps": {
+        "__type__": "set",
+        "__value__": [
+          {
+            "__type__": "tuple",
+            "__value__": [
+              6,
+              3
+            ]
+          },
+          {
+            "__type__": "tuple",
+            "__value__": [
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "fakes": {
+        "__type__": "set",
+        "__value__": []
+      },
+      "vod": 0.30134025075659315
+    }
+  ]
+}
