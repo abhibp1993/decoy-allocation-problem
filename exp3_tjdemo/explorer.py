@@ -1,8 +1,12 @@
+import ast
 import functools
+import game
 import sys
 
-import PyQt6
-from PyQt6 import QtCore, QtGui, QtWidgets
+from gwutils import *
+
+# import PyQt6
+# from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import (
     QApplication,
@@ -23,7 +27,7 @@ __author__ = "Abhishek N. Kulkarni"
 
 
 class TJDecoyAllocExplorer(QMainWindow):
-    def __init__(self, gw_config):
+    def __init__(self, gw_config, base_game):
         super().__init__()
 
         # Game parameters
@@ -32,6 +36,8 @@ class TJDecoyAllocExplorer(QMainWindow):
         self._obstacles = gw_config["obstacles"]
         self._real_cheese = gw_config["real_cheese"]
         self._tom = gw_config["tom"]
+        self._solver = gw_config["solver"]
+        self._game = base_game
 
         # Simulator properties
         self._selected_tile = None
@@ -62,7 +68,7 @@ class TJDecoyAllocExplorer(QMainWindow):
         self._main_layout.addLayout(self._tiles_layout)
 
         # Add gridworld
-        self._gridworld = Gridworld(name="Gridworld", rows=self._rows, cols=self._cols)
+        self._gridworld = GridUI(name="Gridworld", rows=self._rows, cols=self._cols)
         self._main_layout.addWidget(self._gridworld)
 
         # Add obstacles
@@ -81,7 +87,8 @@ class TJDecoyAllocExplorer(QMainWindow):
             cell.mousePressEvent = lambda e: None
 
         # Add tom
-        self._gridworld[self._tom].tom.setVisible(True)
+        if self._tom is not None:
+            self._gridworld[self._tom].tom.setVisible(True)
 
         # Add author
         self._author = QLabel("Abhishek N. Kulkarni")
@@ -115,12 +122,12 @@ class TJDecoyAllocExplorer(QMainWindow):
             control.mousePressEvent = functools.partial(self.tile_select_changed, tile=control)
             self._tiles_layout.addWidget(control)
 
-        self._tiles[0].setEnabled(False)
+        # self._tiles[0].setEnabled(False)
         self._tiles[1].setEnabled(False)
         self._tiles[4].mousePressEvent = lambda e: None
 
 
-class Gridworld(QWidget):
+class GridUI(QWidget):
     def __init__(self, name, rows, cols, **kwargs):
         super().__init__(parent=kwargs.get("parent", None))
 
@@ -142,7 +149,7 @@ class Gridworld(QWidget):
         self._cells = dict()
         for r in range(self._rows):
             for c in range(self._cols):
-                self._cells[(r, c)] = Cell(f"({r}, {c})", parent=self)
+                self._cells[(r, c)] = CellUI(f"({r}, {c})", parent=self)
                 self._cells[(r, c)].setMinimumSize(100, 100)
                 self._cells[(r, c)].setStyleSheet(
                     "border: 2px solid black;"
@@ -159,7 +166,7 @@ class Gridworld(QWidget):
         return self._cells[pos]
 
 
-class Cell(QPushButton):
+class CellUI(QPushButton):
     def __init__(self, name, **kwargs):
         super().__init__(parent=kwargs.get("parent", None))
         self.setMouseTracking(True)
@@ -237,7 +244,11 @@ class Cell(QPushButton):
         selected_tile = window._selected_tile.name() if window._selected_tile is not None else None
         if selected_tile is not None:
             if selected_tile == "place_tom":
+                tom_pos = window._tom
+                if tom_pos is not None:
+                    window._gridworld[tom_pos].tom.setVisible(False)
                 self.tom.setVisible(True)
+                window._tom = ast.literal_eval(self._name)
             elif selected_tile == "place_jerry":
                 self.jerry.setVisible(True)
             elif selected_tile == "place_fake":
@@ -251,9 +262,101 @@ class Cell(QPushButton):
                 control.setVisible(False)
 
 
-def run_explorer(gw_config):
+class Gridworld(game.Game):
+    def __init__(self, dim, obs, real_cheese):
+        super(Gridworld, self).__init__(type_game=game.TYPE_DTPTB)
+        self.rows = dim[0]
+        self.cols = dim[1]
+        self.obs = obs
+        self.real_cheese = real_cheese
+
+    def __str__(self):
+        delta = {(st, a): self.delta(st, a) for st in self.states() for a in self.actions(st)}
+        final = {st for st in self.states() if self.final(st)}
+        return f"{self.states()=}\n" \
+               f"{delta=}\n" \
+               f"{final=}\n"
+
+    def init_states(self):
+        """ (r1, c1): tom (defender), (r2, c2): jerry (attacker) """
+        return [(r1, c1, r2, c2, t)
+                for r1 in range(self.rows)
+                for c1 in range(self.cols)
+                for r2 in range(self.rows)
+                for c2 in range(self.cols)
+                for t in [1, 2]
+                if (r1, c1) not in self.obs and (r2, c2) not in self.obs
+                ]
+
+    def is_state_valid(self, state) -> bool:
+        r1, c1, r2, c2, t = state
+        if (r1, c1) in self.obs and (r2, c2) in self.obs:
+            return False
+
+        if 0 <= r1 < self.rows and 0 <= c1 < self.cols and 0 <= r2 < self.rows and 0 <= c2 < self.cols:
+            return True
+
+    def turn(self, state):
+        return state[-1]
+
+    def actions(self, state=None):
+        return [GW_ACT_N, GW_ACT_E, GW_ACT_S, GW_ACT_W]
+
+    def delta(self, state, act):
+        turn = self.turn(state)
+
+        if state[0:2] == state[2:4]:
+            return state[0:4] + ((1,) if turn == 2 else (2,))
+
+        if turn == 1:
+            r, c = state[0:2]
+        else:
+            r, c = state[2:4]
+
+        next_r, next_c = move((r, c), act)
+        next_r, next_c = bouncy_wall((r, c), [(next_r, next_c)], (self.rows, self.cols))[0]
+        next_r, next_c = bouncy_obstacle((r, c), [(next_r, next_c)], self.obs)[0]
+
+        if turn == 1:
+            return (next_r, next_c) + state[2:4] + (2,)
+        else:
+            return state[0:2] + (next_r, next_c) + (1,)
+
+    def final(self, state):
+        return state in [(r1, c1, r2, c2, t)
+                         for r2, c2 in self.real_cheese
+                         for r1 in range(self.rows)
+                         for c1 in range(self.cols)
+                         for t in range(1, 3)
+                         if (r2, c2) not in self.obs and (r1, c1) not in self.obs
+                         ]
+
+    def jerry_equiv(self, cell):
+        """ Returns states in which Jerry is at given cell """
+        return {
+            (r1, c1) + cell + (t,)
+            for r1 in range(self.rows)
+            for c1 in range(self.cols)
+            for t in range(1, 3)
+            if (r1, c1) not in self.obs
+        }
+
+    def atoms(self):
+        return {"caught", "cheese"}
+
+    def label(self, state):
+        r1, c1, r2, c2, t = state
+        if (r1, c1) == (r2, c2):
+            return {"caught"}
+        elif (r2, c2) in self.real_cheese:
+            return {"cheese"}
+        else:
+            return set()
+
+
+def run_explorer(gw_config, base_game):
     app = QApplication(sys.argv)
-    ex = TJDecoyAllocExplorer(gw_config)
+    ex = TJDecoyAllocExplorer(gw_config, base_game)
     ex.show()
     sys.exit(app.exec())
 
@@ -265,8 +368,15 @@ if __name__ == '__main__':
         "cols": 7,
         "obstacles": [(0, 4), (2, 4), (4, 4), (6, 4)],
         "real_cheese": [(1, 6), (4, 6)],
-        "tom": (0, 0),
+        "tom": None,
+        "solver": "dswin",
     }
 
+    # Define game
+    gw = Gridworld(dim=(config["rows"], config["cols"]), obs=config["obstacles"], real_cheese=config["real_cheese"])
+    model = gw.build_model()
+    gw_graph = game.to_graph(model)
+
+
     # Run allocation explorer GUI
-    run_explorer(gw_config=config)
+    run_explorer(gw_config=config, base_game=gw_graph)
