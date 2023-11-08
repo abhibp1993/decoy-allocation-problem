@@ -23,22 +23,31 @@ __author__ = "Abhishek N. Kulkarni"
 
 
 class TJDecoyAllocExplorer(QMainWindow):
-    def __init__(self):
+    def __init__(self, gw_config):
         super().__init__()
 
         # Game parameters
-        self._rows = 5
-        self._cols = 5
+        self._rows = gw_config["rows"]
+        self._cols = gw_config["cols"]
+        self._obstacles = gw_config["obstacles"]
+        self._real_cheese = gw_config["real_cheese"]
+        self._tom = gw_config["tom"]
 
         # Simulator properties
         self._selected_tile = None
 
         # Set up the window
-        self.setWindowTitle("Tom & Jerry Decoy Allocation Explorer")
+        self.setWindowTitle("Decoy Allocation Explorer")
         self.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
 
         # Set up the main widget
         self._main_layout = QVBoxLayout()
+
+        # Title
+        self._title = QLabel("Decoy Allocation in Tom and Jerry Game")
+        self._title.setStyleSheet("font-size: 20px; font-weight: bold;")
+        self._title.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self._main_layout.addWidget(self._title)
 
         # Set central widget
         central_widget = QWidget(self)
@@ -53,10 +62,32 @@ class TJDecoyAllocExplorer(QMainWindow):
         self._main_layout.addLayout(self._tiles_layout)
 
         # Add gridworld
-        self._gridworld = Gridworld(name="Gridworld", rows=5, cols=5)
+        self._gridworld = Gridworld(name="Gridworld", rows=self._rows, cols=self._cols)
         self._main_layout.addWidget(self._gridworld)
 
-        # self.showMaximized()
+        # Add obstacles
+        for obs in self._obstacles:
+            cell = self._gridworld[obs]
+            cell.setStyleSheet("background-color: black;")
+            cell.enterEvent = lambda e: None
+            cell.leaveEvent = lambda e: None
+            cell.mousePressEvent = lambda e: None
+
+        # Add real cheese
+        for cheese in self._real_cheese:
+            cell = self._gridworld[cheese]
+            cell.cheese.setVisible(True)
+            cell.cheese.mousePressEvent = lambda e: None
+            cell.mousePressEvent = lambda e: None
+
+        # Add tom
+        self._gridworld[self._tom].tom.setVisible(True)
+
+        # Add author
+        self._author = QLabel("Abhishek N. Kulkarni")
+        self._author.setStyleSheet("font-size: 10px; font-weight: bold;")
+        self._author.setAlignment(Qt.AlignmentFlag.AlignRight)
+        self._main_layout.addWidget(self._author)
 
     def tile_select_changed(self, e, tile):
         if tile.is_selected():
@@ -74,7 +105,8 @@ class TJDecoyAllocExplorer(QMainWindow):
             ImageButton(name="place_tom", impath="tom.png", parent=self),
             ImageButton(name="place_jerry", impath="jerry.png", parent=self),
             ImageButton(name="place_fake", impath="fake.jpg", parent=self),
-            ImageButton(name="place_trap", impath="trap.jpg", parent=self)
+            ImageButton(name="place_trap", impath="trap.jpg", parent=self),
+            ImageButton(name="run", impath="run.png", parent=self)
         ]
 
         for control in self._tiles:
@@ -85,6 +117,7 @@ class TJDecoyAllocExplorer(QMainWindow):
 
         self._tiles[0].setEnabled(False)
         self._tiles[1].setEnabled(False)
+        self._tiles[4].mousePressEvent = lambda e: None
 
 
 class Gridworld(QWidget):
@@ -110,7 +143,7 @@ class Gridworld(QWidget):
         for r in range(self._rows):
             for c in range(self._cols):
                 self._cells[(r, c)] = Cell(f"({r}, {c})", parent=self)
-                self._cells[(r, c)].setMinimumSize(150, 150)
+                self._cells[(r, c)].setMinimumSize(100, 100)
                 self._cells[(r, c)].setStyleSheet(
                     "border: 2px solid black;"
                     "background-color: white;"
@@ -121,6 +154,9 @@ class Gridworld(QWidget):
                 self._grid.addWidget(self._cells[(r, c)], r, c)
 
         self.setLayout(self._grid)
+
+    def __getitem__(self, pos):
+        return self._cells[pos]
 
 
 class Cell(QPushButton):
@@ -215,9 +251,22 @@ class Cell(QPushButton):
                 control.setVisible(False)
 
 
-
-if __name__ == '__main__':
+def run_explorer(gw_config):
     app = QApplication(sys.argv)
-    ex = TJDecoyAllocExplorer()
+    ex = TJDecoyAllocExplorer(gw_config)
     ex.show()
     sys.exit(app.exec())
+
+
+if __name__ == '__main__':
+    # Define game configuration
+    config = {
+        "rows": 7,
+        "cols": 7,
+        "obstacles": [(0, 4), (2, 4), (4, 4), (6, 4)],
+        "real_cheese": [(1, 6), (4, 6)],
+        "tom": (0, 0),
+    }
+
+    # Run allocation explorer GUI
+    run_explorer(gw_config=config)
