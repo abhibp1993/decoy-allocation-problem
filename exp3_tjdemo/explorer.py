@@ -36,6 +36,7 @@ class TJDecoyAllocExplorer(QMainWindow):
         self._obstacles = gw_config["obstacles"]
         self._real_cheese = gw_config["real_cheese"]
         self._tom = gw_config["tom"]
+        self._jerry = gw_config["jerry"]
         self._solver = gw_config["solver"]
         self._game = base_game
 
@@ -86,9 +87,12 @@ class TJDecoyAllocExplorer(QMainWindow):
             cell.cheese.mousePressEvent = lambda e: None
             cell.mousePressEvent = lambda e: None
 
-        # Add tom
+        # Add tom, jerry
         if self._tom is not None:
             self._gridworld[self._tom].tom.setVisible(True)
+
+        if self._jerry is not None:
+            self._gridworld[self._jerry].jerry.setVisible(True)
 
         # Add author
         self._author = QLabel("Abhishek N. Kulkarni")
@@ -123,7 +127,7 @@ class TJDecoyAllocExplorer(QMainWindow):
             self._tiles_layout.addWidget(control)
 
         # self._tiles[0].setEnabled(False)
-        self._tiles[1].setEnabled(False)
+        # self._tiles[1].setEnabled(False)
         self._tiles[4].mousePressEvent = lambda e: None
 
 
@@ -250,7 +254,11 @@ class CellUI(QPushButton):
                 self.tom.setVisible(True)
                 window._tom = ast.literal_eval(self._name)
             elif selected_tile == "place_jerry":
+                jerry_pos = window._jerry
+                if jerry_pos is not None:
+                    window._gridworld[jerry_pos].jerry.setVisible(False)
                 self.jerry.setVisible(True)
+                window._jerry = ast.literal_eval(self._name)
             elif selected_tile == "place_fake":
                 self.fake.setVisible(True)
             elif selected_tile == "place_trap":
@@ -369,6 +377,7 @@ if __name__ == '__main__':
         "obstacles": [(0, 4), (2, 4), (4, 4), (6, 4)],
         "real_cheese": [(1, 6), (4, 6)],
         "tom": None,
+        "jerry": None,
         "solver": "dswin",
     }
 
