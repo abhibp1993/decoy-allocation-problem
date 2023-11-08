@@ -16,7 +16,7 @@ from PyQt6.QtWidgets import (
     QWidget,
     QPushButton,
     QGridLayout,
-    QTextEdit,
+    QRadioButton,
     QLabel,
     QFileDialog,
     QSizePolicy
@@ -61,12 +61,25 @@ class TJDecoyAllocExplorer(QMainWindow):
         central_widget.setLayout(self._main_layout)
         self.setCentralWidget(central_widget)
 
-        # Add object buttons (tiles)
+        # Add menu layout
+        self._menu_layout = QHBoxLayout()
+        self._main_layout.addLayout(self._menu_layout)
+
+        # Add tile buttons
         self._tiles_layout = QHBoxLayout()
         self._tiles_layout.setAlignment(Qt.AlignmentFlag.AlignLeft)
         self._tiles = []
         self._generate_tiles()
-        self._main_layout.addLayout(self._tiles_layout)
+        # self._main_layout.addLayout(self._tiles_layout)
+        self._menu_layout.addLayout(self._tiles_layout)
+
+        # Add run buttons
+        self._run_layout = QHBoxLayout()
+        self._run_layout.setAlignment(Qt.AlignmentFlag.AlignRight)
+        self._run_layout.setContentsMargins(0, 0, 0, 0)
+        self._run_layout.setSpacing(0)
+        self._generate_run_menu()
+        self._menu_layout.addLayout(self._run_layout)
 
         # Add gridworld
         self._gridworld = GridUI(name="Gridworld", rows=self._rows, cols=self._cols)
@@ -100,7 +113,56 @@ class TJDecoyAllocExplorer(QMainWindow):
         self._author.setAlignment(Qt.AlignmentFlag.AlignRight)
         self._main_layout.addWidget(self._author)
 
+    def _generate_tiles(self):
+        self._tiles = [
+            ImageButton(name="place_tom", impath="tom.png", parent=self),
+            ImageButton(name="place_jerry", impath="jerry.png", parent=self),
+            ImageButton(name="place_fake", impath="fake.jpg", parent=self),
+            ImageButton(name="place_trap", impath="trap.jpg", parent=self),
+            # ImageButton(name="run", impath="run.png", parent=self)
+        ]
+
+        for control in self._tiles:
+            control.setFixedWidth(40)
+            control.setFixedHeight(40)
+            if control.name() != "run":
+                control.mousePressEvent = functools.partial(self.tile_select_changed, tile=control)
+            else:
+                control.mousePressEvent = self.solve
+            self._tiles_layout.addWidget(control)
+
+        # self._tiles[0].setEnabled(False)
+        # self._tiles[1].setEnabled(False)
+
+    def _generate_run_menu(self):
+        # Solve button
+        solve_button = ImageButton(name="solve", impath="run.png", parent=self)
+        solve_button.setFixedWidth(40)
+        solve_button.setFixedHeight(40)
+        solve_button.setStyleSheet(solve_button.styleSheet() + "padding-left: 10px")
+        solve_button.mousePressEvent = self.solve
+
+        option_buttons = [
+            QRadioButton(f"P1", self, checked=True),
+            QRadioButton(f"P2", self),
+            QRadioButton(f"Hypergame", self)
+        ]
+
+        # Label for options
+        option_label = QLabel("Perceptual game of ", self)
+        option_label.setAlignment(Qt.AlignmentFlag.AlignVCenter)
+        option_label.setStyleSheet("font-size: 16px; font-weight: bold;")
+        self._run_layout.addWidget(option_label)
+
+        for option in option_buttons:
+            option.setStyleSheet("font-size: 16px; font-weight: bold;")
+            self._run_layout.addWidget(option)
+
+        self._run_layout.addWidget(solve_button)
+
+
     def tile_select_changed(self, e, tile):
+        print(tile, " clicked")
         if tile.is_selected():
             tile.set_selected(False)
             self._selected_tile = None
@@ -111,24 +173,16 @@ class TJDecoyAllocExplorer(QMainWindow):
                 if other_tile != tile:
                     other_tile.set_selected(False)
 
-    def _generate_tiles(self):
-        self._tiles = [
-            ImageButton(name="place_tom", impath="tom.png", parent=self),
-            ImageButton(name="place_jerry", impath="jerry.png", parent=self),
-            ImageButton(name="place_fake", impath="fake.jpg", parent=self),
-            ImageButton(name="place_trap", impath="trap.jpg", parent=self),
-            ImageButton(name="run", impath="run.png", parent=self)
-        ]
-
-        for control in self._tiles:
-            control.setFixedWidth(40)
-            control.setFixedHeight(40)
-            control.mousePressEvent = functools.partial(self.tile_select_changed, tile=control)
-            self._tiles_layout.addWidget(control)
-
-        # self._tiles[0].setEnabled(False)
-        # self._tiles[1].setEnabled(False)
-        self._tiles[4].mousePressEvent = lambda e: None
+    def solve(self, e):
+        # Determine whose perspective to solve from. (TODO)
+        # Determine traps and fake targets.
+        # Call appropriate solver.
+        # Determine initial states of interest.
+        # If neither Tom nor Jerry's initial position is known, then show nothing.
+        # If Tom's initial position is known, then use blue for cells in which if Jerry starts from she would lose. Others in red.
+        # If Jerry's initial position is known, then use blue for cells in which if Tom starts from he would win. Others in red.
+        # Assign colors to cells.
+        print("solve")
 
 
 class GridUI(QWidget):
@@ -385,7 +439,6 @@ if __name__ == '__main__':
     gw = Gridworld(dim=(config["rows"], config["cols"]), obs=config["obstacles"], real_cheese=config["real_cheese"])
     model = gw.build_model()
     gw_graph = game.to_graph(model)
-
 
     # Run allocation explorer GUI
     run_explorer(gw_config=config, base_game=gw_graph)
