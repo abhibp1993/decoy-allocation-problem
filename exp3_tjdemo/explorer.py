@@ -27,12 +27,15 @@ class TJDecoyAllocExplorer(QMainWindow):
         super().__init__()
 
         # Game parameters
+        self._rows = 5
+        self._cols = 5
 
         # Simulator properties
         self._selected_tile = None
 
         # Set up the window
         self.setWindowTitle("Tom & Jerry Decoy Allocation Explorer")
+        self.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
 
         # Set up the main widget
         self._main_layout = QVBoxLayout()
@@ -53,7 +56,7 @@ class TJDecoyAllocExplorer(QMainWindow):
         self._gridworld = Gridworld(name="Gridworld", rows=5, cols=5)
         self._main_layout.addWidget(self._gridworld)
 
-        self.showMaximized()
+        # self.showMaximized()
 
     def tile_select_changed(self, e, tile):
         if tile.is_selected():
@@ -94,9 +97,9 @@ class Gridworld(QWidget):
         self._cols = cols
 
         # Default properties
-        self.setMinimumWidth(100 * self._cols)
-        self.setMinimumHeight(100 * self._rows)
-        self.setContentsMargins(0, 0, 0, 0)
+        # self.setMinimumWidth(120 * (self._cols + 1))
+        # self.setMinimumHeight(120 * (self._rows + 1))
+        self.setContentsMargins(5, 5, 5, 5)
 
         # Create grid
         self._grid = QGridLayout()
@@ -109,7 +112,7 @@ class Gridworld(QWidget):
                 self._cells[(r, c)] = Cell(f"({r}, {c})", parent=self)
                 self._cells[(r, c)].setMinimumSize(150, 150)
                 self._cells[(r, c)].setStyleSheet(
-                    # "border: 1px solid black;"
+                    "border: 2px solid black;"
                     "background-color: white;"
                     "min-width=100px;"
                     "min-height=100px;"
@@ -129,9 +132,9 @@ class Cell(QPushButton):
         self._name = name
 
         # Default properties
-        self.setFixedWidth(100)
-        self.setFixedHeight(100)
-        self.setContentsMargins(0, 0, 0, 0)
+        # self.setFixedWidth(100)
+        # self.setFixedHeight(100)
+        self.setContentsMargins(0, 0, 0, 10)
 
         # Main layout
         self._main_layout = QGridLayout()
@@ -142,58 +145,53 @@ class Cell(QPushButton):
 
         # Add label
         self._label = QLabel(self._name, self)
+        self._label.setStyleSheet("border: 0px solid black;")
         self._label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
         self._label.setMargin(0)
         self._main_layout.addWidget(self._label, 0, 0)
 
-        # Add two horizontal layouts to accommodate four tiles (at most). -- HARD CODED LIMIT.
-        # self._top_layout = QHBoxLayout()
-        # self._bottom_layout = QHBoxLayout()
-        # self._main_layout.addLayout(self._top_layout)
-        # self._main_layout.addLayout(self._bottom_layout)
-        # self._grid_layout = QGridLayout()
-        # self._grid_layout.setSpacing(0)
-        # self._grid_layout.setContentsMargins(0, 0, 0, 0)
-        # self._main_layout.addLayout(self._grid_layout)
-
         # Test tiles
         self.tom = ImageButton(name="tom", impath="tom.png", parent=self)
         self.jerry = ImageButton(name="jerry", impath="jerry.png", parent=self)
+        self.cheese = ImageButton(name="jerry", impath="cheese.png", parent=self)
         self.fake = ImageButton(name="fake", impath="fake.jpg", parent=self)
         self.trap = ImageButton(name="trap", impath="trap.jpg", parent=self)
 
         self.tom.setMinimumSize(40, 40)
         self.jerry.setMinimumSize(40, 40)
+        self.cheese.setMinimumSize(40, 40)
         self.fake.setMinimumSize(40, 40)
         self.trap.setMinimumSize(40, 40)
 
+        self.tom.setVisible(False)
+        self.jerry.setVisible(False)
+        self.cheese.setVisible(False)
+        self.fake.setVisible(False)
+        self.trap.setVisible(False)
+
         self.tom.mousePressEvent = functools.partial(self._clicked, control=self.tom)
         self.jerry.mousePressEvent = functools.partial(self._clicked, control=self.jerry)
+        self.cheese.mousePressEvent = functools.partial(self._clicked, control=self.cheese)
         self.fake.mousePressEvent = functools.partial(self._clicked, control=self.fake)
         self.trap.mousePressEvent = functools.partial(self._clicked, control=self.trap)
 
-        # # self._top_layout.addWidget(tom)
-        # # self._top_layout.addWidget(jerry)
-        # # self._bottom_layout.addWidget(fake)
-        # # self._bottom_layout.addWidget(trap)
+        self._main_layout.addWidget(self.cheese, 0, 1)
         self._main_layout.addWidget(self.tom, 1, 0)
         self._main_layout.addWidget(self.jerry, 1, 1)
         self._main_layout.addWidget(self.fake, 2, 0)
         self._main_layout.addWidget(self.trap, 2, 1)
 
     def enterEvent(self, e) -> None:
-        # print("mouse enter event")
         self.setStyleSheet(
-            "background-color: red;"
-            "border: 1px solid black;"
+            "background-color: white;"
+            "border: 5px solid green;"
         )
         self._label.setStyleSheet("border: 0px solid black;")
 
     def leaveEvent(self, e) -> None:
-        # print("mouse exit")
         self.setStyleSheet(
             "background-color: white;"
-            "border: 1px solid black;"
+            "border: 2px solid black;"
         )
         self._label.setStyleSheet("border: 0px solid black;")
 
@@ -210,7 +208,6 @@ class Cell(QPushButton):
                 self.fake.setVisible(True)
             elif selected_tile == "place_trap":
                 self.trap.setVisible(True)
-                # self._main_layout.addWidget(ImageButton(name="trap", impath="trap.jpg", parent=self), 2, 1)
 
     def _clicked(self, e, control):
         for idx in range(self._main_layout.count()):
