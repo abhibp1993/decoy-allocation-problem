@@ -83,8 +83,18 @@ class TJDecoyAllocExplorer(QMainWindow):
             else:
                 fake = ImageButton(f"fake@{cell.name()}", "fake.jpg", parent=cell)
                 fake.mousePressEvent = functools.partial(self._cell_clicked, cell=cell)
-                # fake.setFixedSize(40, 40)
+                fake.setFixedSize(40, 40)
                 cell.add_widget(fake)
+
+        elif self._selected_control is not None and self._selected_control.name() == "place_trap":
+            # If fake target exists in cell, remove it. Else, add it.
+            if cell.has_widget(f"trap@{cell.name()}"):
+                cell.remove_widget(f"trap@{cell.name()}")
+            else:
+                trap = ImageButton(f"trap@{cell.name()}", "trap.jpg", parent=cell)
+                trap.mousePressEvent = functools.partial(self._cell_clicked, cell=cell)
+                # fake.setFixedSize(40, 40)
+                cell.add_widget(trap)
 
 
 def main():

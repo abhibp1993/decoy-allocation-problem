@@ -94,6 +94,7 @@ class Cell(QtWidgets.QWidget):
         # Main Layout
         self._main_layout = QtWidgets.QGridLayout()
         self._main_layout.setContentsMargins(15, 15, 15, 15)
+        # self._main_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self._main_layout_cols = math.ceil(math.sqrt(self._widget_capacity))
         self._main_layout_rows = math.ceil(self._widget_capacity / self._main_layout_cols)
@@ -105,6 +106,7 @@ class Cell(QtWidgets.QWidget):
         self._canvas.setStyleSheet(
             f"font-size: {self._font_size}px; "
             f"background-color: {self._backcolor};"
+            f"min-height: 12px"
         )
         self._main_layout.addWidget(self._canvas, 0, 0, -1, -1)
 
@@ -149,6 +151,11 @@ class Cell(QtWidgets.QWidget):
             logger.warning(f"Cell {self._name} is full. Cannot add widget.")
             return
 
+        # widget.setFixedHeight(30)
+        # widget.setFixedWidth(30)
+        # widget.setStyleSheet(f"max-width: 30px")
+        # widget.set_size(30, 30)
+        self._main_layout.addWidget(widget, pos[0]+1, pos[1])
         self._widgets[pos] = widget
         self.update()
 
@@ -163,27 +170,36 @@ class Cell(QtWidgets.QWidget):
             if v.name() == name:
                 pos = k
                 break
-        if pos is not None:
-            widget_to_remove = self._main_layout.itemAtPosition(pos[0], pos[1])
-            self._main_layout.removeWidget(widget_to_remove.widget())
-            self._widgets.pop(pos)
-            self._canvas.update()
+        # if pos is not None:
+        #     widget_to_remove = self._main_layout.itemAtPosition(pos[0] + 1, pos[1])
+        #     widget_to_remove.widget().deleteLater()
+        #     # self._main_layout.removeWidget(widget_to_remove.widget())
+        #     self._widgets.pop(pos)
+        #     self._main_layout.update()
+        for i in reversed(range(self._main_layout.count())):
+            if self._main_layout.itemAt(i).widget().name() == name:
+                self._main_layout.itemAt(i).widget().deleteLater()
+                self._main_layout.update()
+                self._widgets.pop(pos)
+                break
 
-    def paintEvent(self, e):
-        # Add logic to determine size.
-        if len(self._widgets) == 0:
-            self._canvas.clear()
-            return
-        for pos, widget in self._widgets.items():
-            widget.set_size(30, 30)
-            widget.setStyleSheet(
-                f"border: {0}px {self._border_style} {self._border_color}; "
-                f"min-width: 0px; "
-                f"min-height: 0px; "
-                f"max-width: {self._max_width}px; "
-                f"max-height: {self._max_height}px; "
-            )
-            self._main_layout.addWidget(widget, pos[0], pos[1])
+    # def paintEvent(self, e):
+    #     # Add logic to determine size.
+    #     if len(self._widgets) == 0:
+    #         # self._main_layout.clear()
+    #         # for i in reversed(range(self._main_layout.count())):
+    #         #     self._main_layout.itemAt(i).widget().setParent(None)
+    #         return
+    #     for pos, widget in self._widgets.items():
+    #         widget.set_size(30, 30)
+    #         widget.setStyleSheet(
+    #             f"border: {0}px {self._border_style} {self._border_color}; "
+    #             f"min-width: 0px; "
+    #             f"min-height: 0px; "
+    #             f"max-width: {self._max_width}px; "
+    #             f"max-height: {self._max_height}px; "
+    #         )
+    #         self._main_layout.addWidget(widget, pos[0], pos[1])
 
     def mousePressEvent(self, a0: QtGui.QMouseEvent) -> None:
         self._state_is_selected = not self._state_is_selected
@@ -205,20 +221,22 @@ class ImageButton(QPushButton):
         self._impath = impath
 
         # Main Layout
+        self.setSizePolicy(QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Fixed)
         self._main_layout = QVBoxLayout()
         self._main_layout.setContentsMargins(0, 0, 0, 0)
 
         # Canvas for image drawing
         self._canvas = QLabel()
+        self._canvas.setScaledContents(True)
         # self._canvas.setStyleSheet(
         #     f"min-width: {self.width()}px; "
         #     f"min-height: {self.height()}px; "
         #
         # )
-        self._canvas.setScaledContents(True)
+
 
         # Draw image
-        self._pixmap = QtGui.QPixmap(self._impath)
+        self._pixmap = QtGui.QPixmap(self._impath)   #.scaled(width, height, Qt.AspectRatioMode.KeepAspectRatio)
         self._canvas.setPixmap(self._pixmap)
         self.setStyleSheet(f"border: 1px solid black; ")
         self._main_layout.addWidget(self._canvas)
@@ -252,6 +270,8 @@ class ImageButton(QPushButton):
     def name(self):
         return self._name
 
+    def paintEvent(self, e) -> None:
+        self._canvas.setPixmap(self._pixmap)
 
 class Tile2(QLabel):
     def __init__(self, name, impath, **kwargs):
