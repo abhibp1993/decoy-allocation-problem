@@ -1,9 +1,13 @@
 import ast
 import functools
+import itertools
+
 import game
 import sys
 
+import solvers
 from gwutils import *
+from loguru import logger
 
 # import PyQt6
 # from PyQt6 import QtCore, QtGui, QtWidgets
@@ -18,7 +22,7 @@ from PyQt6.QtWidgets import (
     QGridLayout,
     QRadioButton,
     QLabel,
-    QFileDialog,
+    QMessageBox,
     QSizePolicy
 )
 from mywidgets import ImageButton
@@ -74,6 +78,7 @@ class TJDecoyAllocExplorer(QMainWindow):
         self._menu_layout.addLayout(self._tiles_layout)
 
         # Add run buttons
+        self._option_buttons = []
         self._run_layout = QHBoxLayout()
         self._run_layout.setAlignment(Qt.AlignmentFlag.AlignRight)
         self._run_layout.setContentsMargins(0, 0, 0, 0)
@@ -142,9 +147,9 @@ class TJDecoyAllocExplorer(QMainWindow):
         solve_button.setStyleSheet(solve_button.styleSheet() + "padding-left: 10px")
         solve_button.mousePressEvent = self.solve
 
-        option_buttons = [
-            QRadioButton(f"P1", self, checked=True),
-            QRadioButton(f"P2", self),
+        self._option_buttons = [
+            QRadioButton(f"Tom", self, checked=True),
+            QRadioButton(f"Jerry", self),
             QRadioButton(f"Hypergame", self)
         ]
 
@@ -154,8 +159,13 @@ class TJDecoyAllocExplorer(QMainWindow):
         option_label.setStyleSheet("font-size: 16px; font-weight: bold;")
         self._run_layout.addWidget(option_label)
 
-        for option in option_buttons:
-            option.setStyleSheet("font-size: 16px; font-weight: bold;")
+        for option in self._option_buttons:
+            if option.text() == "Hypergame":
+                option.setStyleSheet("font-size: 16px; font-weight: bold; color: green;")
+            if option.text() == "Tom":
+                option.setStyleSheet("font-size: 16px; font-weight: bold; color: blue;")
+            if option.text() == "Jerry":
+                option.setStyleSheet("font-size: 16px; font-weight: bold; color: red;")
             self._run_layout.addWidget(option)
 
         self._run_layout.addWidget(solve_button)
@@ -174,15 +184,80 @@ class TJDecoyAllocExplorer(QMainWindow):
                     other_tile.set_selected(False)
 
     def solve(self, e):
-        # Determine whose perspective to solve from. (TODO)
+        # Determine whose perspective to solve from.
+        perspective_of = None
+        for button in self._option_buttons:
+            if button.isChecked():
+                perspective_of = button.text()
+                break
+
         # Determine traps and fake targets.
+        traps = []
+        fakes = []
+        for r, c in itertools.product(range(self._rows), range(self._cols)):
+            cell = self._gridworld[(r, c)]
+            if cell.trap.isVisible():
+                traps.append((r, c))
+            if cell.fake.isVisible():
+                fakes.append((r, c))
+
         # Call appropriate solver.
+        if perspective_of.upper() == "TOM":
+            solution = None
+
+        elif perspective_of.upper() == "JERRY":
+            final = {uid for uid, u in self._game.nodes(data=True) if u['state'][2:4] in self._real_cheese}
+            fakes = {uid for uid, u in self._game.nodes(data=True) if u['state'][2:4] in fakes}
+            solution = solvers.solve_p2game(self._game, final, fakes)
+
+        elif perspective_of.upper() == "HYPERGAME":
+            solution = None
+
+        else:
+            logger.error(f"Unknown perspective: {perspective_of}")
+            solution = None
+
+
         # Determine initial states of interest.
-        # If neither Tom nor Jerry's initial position is known, then show nothing.
-        # If Tom's initial position is known, then use blue for cells in which if Jerry starts from she would lose. Others in red.
-        # If Jerry's initial position is known, then use blue for cells in which if Tom starts from he would win. Others in red.
+        if self._tom is None and self._jerry is None:
+            dlg = QMessageBox(self)
+            dlg.setWindowTitle("No initial states provided!")
+            dlg.setText("Place at least Tom or Jerry to see the solution.")
+            dlg.setStandardButtons(QMessageBox.StandardButton.Ok)
+            dlg.setIcon(QMessageBox.Icon.Warning)
+            dlg.exec()
+
+        elif self._tom is not None and self._jerry is None:
+            tom_wins = {
+                self._game.nodes[u]['state'][2:4]
+                for u in solution.winning_nodes[1]
+                if self._game.nodes[u]['state'][0:2] == self._tom and self._game.nodes[u]['state'][-1] == 1
+            }
+
+            jerry_wins = {
+                self._game.nodes[u]['state'][2:4]
+                for u in solution.winning_nodes[2]
+                if self._game.nodes[u]['state'][0:2] == self._tom and self._game.nodes[u]['state'][-1] == 1
+            }
+
+            print("tom wins", tom_wins)
+            print("jerry wins", jerry_wins)
+
+        elif self._tom is None and self._jerry is not None:
+            pass
+        else:
+            pass
+
+
         # Assign colors to cells.
-        print("solve")
+        for cell in tom_wins:
+            self._gridworld[cell].set_backcolor("LightBlue")
+            self._gridworld[cell].update_stylesheet()
+        for cell in jerry_wins:
+            self._gridworld[cell].set_backcolor("LightPink")
+            self._gridworld[cell].update_stylesheet()
+
+        print("solved")
 
 
 class GridUI(QWidget):
@@ -231,6 +306,10 @@ class CellUI(QPushButton):
 
         # Properties
         self._name = name
+        self._backcolor = "white"
+        self._border_width = 2
+        self._border_color = "black"
+        self._border_style = "solid"
 
         # Default properties
         # self.setFixedWidth(100)
@@ -283,18 +362,16 @@ class CellUI(QPushButton):
         self._main_layout.addWidget(self.trap, 2, 1)
 
     def enterEvent(self, e) -> None:
-        self.setStyleSheet(
-            "background-color: white;"
-            "border: 5px solid green;"
-        )
-        self._label.setStyleSheet("border: 0px solid black;")
+        self._border_width = 5
+        self._border_color = "green"
+        self._border_style = "solid"
+        self.update_stylesheet()
 
     def leaveEvent(self, e) -> None:
-        self.setStyleSheet(
-            "background-color: white;"
-            "border: 2px solid black;"
-        )
-        self._label.setStyleSheet("border: 0px solid black;")
+        self._border_width = 2
+        self._border_color = "black"
+        self._border_style = "solid"
+        self.update_stylesheet()
 
     def mousePressEvent(self, e) -> None:
         print("mouse press event", self, self.parent().parent())
@@ -317,6 +394,21 @@ class CellUI(QPushButton):
                 self.fake.setVisible(True)
             elif selected_tile == "place_trap":
                 self.trap.setVisible(True)
+
+    def set_backcolor(self, color):
+        self._backcolor = color
+
+        self.setStyleSheet(
+            f"background-color: {self._backcolor};"
+            f"border: {self._border_width}px {self._border_style} {self._border_color};"
+        )
+
+    def update_stylesheet(self):
+        self.setStyleSheet(
+            f"background-color: {self._backcolor};"
+            f"border: {self._border_width}px {self._border_style} {self._border_color};"
+        )
+        self._label.setStyleSheet("border: 0px solid black;")
 
     def _clicked(self, e, control):
         for idx in range(self._main_layout.count()):
