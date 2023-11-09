@@ -248,6 +248,7 @@ class TJDecoyAllocExplorer(QMainWindow):
             dlg.setStandardButtons(QMessageBox.StandardButton.Ok)
             dlg.setIcon(QMessageBox.Icon.Warning)
             dlg.exec()
+            return
 
         elif self._tom is not None and self._jerry is None:
             tom_wins = {
@@ -262,20 +263,6 @@ class TJDecoyAllocExplorer(QMainWindow):
                 if self._game.nodes[u]['state'][0:2] == self._tom and self._game.nodes[u]['state'][-1] == 1
             }
 
-            # tom_wins = set()
-            # tom_pi = dict()
-            # for u in solution.winning_nodes[1]:
-            #     if self._game.nodes[u]['state'][0:2] == self._tom and self._game.nodes[u]['state'][-1] == 1:
-            #         cell = self._game.nodes[u]['state'][2:4]
-            #         tom_wins.add(cell)
-            #         tom_pi[self._game.nodes[u]['state']] = solution.sr_acts[u]
-
-
-            # print("tom wins", tom_wins)
-            # print("jerry wins", jerry_wins)
-            # from pprint import pprint
-            # pprint({self._game.nodes[u]['state']: v for u, v in solution.sr_acts.items()})
-
         elif self._tom is None and self._jerry is not None:
             pass
         else:
@@ -284,8 +271,12 @@ class TJDecoyAllocExplorer(QMainWindow):
 
         # Assign colors to cells.
         for cell in tom_wins:
-            self._gridworld[cell].set_backcolor("LightBlue")
-            self._gridworld[cell].update_stylesheet()
+            if perspective_of.upper() == "HYPERGAME":
+                self._gridworld[cell].set_backcolor("LightGreen")
+                self._gridworld[cell].update_stylesheet()
+            else:
+                self._gridworld[cell].set_backcolor("LightBlue")
+                self._gridworld[cell].update_stylesheet()
         for cell in jerry_wins:
             self._gridworld[cell].set_backcolor("LightPink")
             self._gridworld[cell].update_stylesheet()
