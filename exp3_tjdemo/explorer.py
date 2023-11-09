@@ -1,4 +1,5 @@
 import ast
+import copy
 import functools
 import itertools
 
@@ -184,6 +185,15 @@ class TJDecoyAllocExplorer(QMainWindow):
                     other_tile.set_selected(False)
 
     def solve(self, e):
+        # TODO. Reset all cell backgrounds
+        for r, c in itertools.product(range(self._rows), range(self._cols)):
+            if (r, c) in self._obstacles:
+                continue
+            cell = self._gridworld[(r, c)]
+            cell.set_backcolor("white")
+            cell.update_stylesheet()
+            cell.update()
+
         # Determine whose perspective to solve from.
         perspective_of = None
         for button in self._option_buttons:
@@ -203,7 +213,12 @@ class TJDecoyAllocExplorer(QMainWindow):
 
         # Call appropriate solver.
         if perspective_of.upper() == "TOM":
-            solution = None
+            p1_game = copy.deepcopy(self._game)
+            for uid, data in p1_game.nodes(data=True):
+                if data['state'][2:4] in traps or data['state'][2:4] in fakes:
+                    p1_game.remove_edges_from(list(p1_game.out_edges(uid, keys=True)))
+            final = {uid for uid, u in p1_game.nodes(data=True) if u['state'][2:4] in self._real_cheese}
+            solution = solvers.solve_base_game(p1_game, final)
 
         elif perspective_of.upper() == "JERRY":
             final = {uid for uid, u in self._game.nodes(data=True) if u['state'][2:4] in self._real_cheese}
@@ -211,7 +226,11 @@ class TJDecoyAllocExplorer(QMainWindow):
             solution = solvers.solve_p2game(self._game, final, fakes)
 
         elif perspective_of.upper() == "HYPERGAME":
-            solution = None
+            final = {uid for uid, u in self._game.nodes(data=True) if u['state'][2:4] in self._real_cheese}
+            fakes = {uid for uid, u in self._game.nodes(data=True) if u['state'][2:4] in fakes}
+            traps = {uid for uid, u in self._game.nodes(data=True) if u['state'][2:4] in traps}
+            solution = solvers.DSWinReach(self._game, final, fakes, traps)
+            solution.solve()
 
         else:
             logger.error(f"Unknown perspective: {perspective_of}")
