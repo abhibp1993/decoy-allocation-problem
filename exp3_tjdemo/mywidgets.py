@@ -215,6 +215,7 @@ class Cell(QtWidgets.QWidget):
 class ImageButton(QPushButton):
     def __init__(self, name, impath, **kwargs):
         super(ImageButton, self).__init__(parent=kwargs.get("parent", None))
+        self.setMouseTracking(True)
 
         # Properties
         self._name = name
@@ -272,6 +273,14 @@ class ImageButton(QPushButton):
 
     def paintEvent(self, e) -> None:
         self._canvas.setPixmap(self._pixmap)
+
+    # def enterEvent(self, event) -> None:
+    #     self.setStyleSheet(f"border: 3px solid green; ")
+    #
+    # def leaveEvent(self, event) -> None:
+    #     self.setStyleSheet(f"border: 1px solid black; ")
+
+
 
 class Tile2(QLabel):
     def __init__(self, name, impath, **kwargs):
